@@ -1,0 +1,90 @@
+/* ===========================================
+ *             Sidebar 页面样式
+ * =========================================== */
+/* 侧边栏底部区 */
+#sidebar .sidebar-bottom { 
+  display: flex;                      /* 布局方式：横向排列子元素 */
+  align-items: center;                /* 垂直方向居中 */
+  justify-content: center;            /* 水平方向居中 */
+  flex-wrap: wrap;                    /* 需要时换行，避免挤在一行 */
+  gap: .875rem;                       /* 子元素之间的间隔 */
+  padding: .75rem 1rem;               /* 内边距（上下 .75rem，左右 1rem） */
+}
+
+/* 扁平化 contact-links，让其中 <a> 与按钮共用同一套 gap 等距，不同数量的联系方式也能自动整齐对齐。 */
+#sidebar .sidebar-bottom .contact-links { display: contents; }
+
+/* 去掉分隔点，避免破坏等距 */
+#sidebar .sidebar-bottom .icon-border { display: none; }
+
+/* 深浅色切换按钮与其它链接统一外观和交互区域，消除不同图标字形宽度带来的错觉 */
+#sidebar .sidebar-bottom #mode-toggle,
+#sidebar .sidebar-bottom .contact-links a {
+  width: 2.0rem;                      /* 统一宽度，避免图标被拉伸 */
+  height: 2.0rem;                     /* 统一宽高，避免图标被拉伸 */
+  display: inline-flex;               /* 让图标和文字垂直居中 */
+  align-items: center;                /* 垂直居中 */
+  justify-content: center;            /* 水平居中 */
+  border-radius: 50%;                 /* 圆形按钮 */
+  line-height: 1;                     /* 行高 1，避免图标被拉伸 */
+}
+
+/* 鼠标悬停时稍微降低文字/图标对比度 */
+#sidebar .sidebar-bottom .contact-links a {
+  color: inherit;                     /* 文字颜色跟随父元素 */
+  transition: opacity .2s ease;       /* 过渡动画（属性变化的平滑） */
+}
+#sidebar .sidebar-bottom .contact-links a:hover { opacity: .8; }
+
+/* 兼容不支持 flex-gap 的旧浏览器 */
+@supports not (gap: 1rem) {
+  #sidebar .sidebar-bottom > * { margin: 0 .4375rem; }
+}
+
+/* Sidebar Background */
+/* ---- Sidebar 背景图（保持 #sidebar 为 fixed） ---- */
+/*
+#sidebar::before {
+  content: "";
+  position: absolute;          /* 相对 fixed 的 #sidebar 定位 
+  inset: 0;
+  z-index: 0;                  /* 在内容之下，但在背景色之上 
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: 0.22;
+  /* 如果你的站点是项目页，建议用 relative_url，防 404 
+  background-image: url("{{ '/assets/img/background/sidebar-light.png' | relative_url }}");
+}
+*/
+
+/* 确保真实内容在背景图之上 */
+/*
+#sidebar .sidebar-inner,
+#sidebar .sidebar-bottom,
+#sidebar .sidebar-top {
+  position: relative;
+  z-index: 1;
+}
+*/
+
+/* 暗色模式切换 */
+/*
+html[data-mode="dark"] #sidebar::before,
+html.dark #sidebar::before,
+[data-theme="dark"] #sidebar::before {
+  background-image: url("{{ '/assets/img/background/sidebar-dark.png' | relative_url }}");
+  opacity: 0.28;
+}
+*/
+
+/* 初次访问按系统暗色兜底 */
+/*
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode="light"]) #sidebar::before {
+    background-image: url("{{ '/assets/img/background/sidebar-dark.png' | relative_url }}");
+    opacity: 0.28;
+  }
+}
+*/

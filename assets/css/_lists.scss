@@ -1,0 +1,38 @@
+/* ===========================================
+                 Lists 页面样式
+   =========================================== */
+/* 一级/二级行的箭头添加旋转过渡，折叠/展开更顺滑 */
+[data-lists] .l1-row .l1-chevron,
+[data-lists] .l2-row .l2-chevron { transition: transform .3s ease; }
+
+/* 展开时一级箭头朝下；收起时向右。 */
+[data-lists] .l1-row:not(.collapsed) .l1-chevron { transform: rotate(90deg); } 
+[data-lists] .l1-row.collapsed       .l1-chevron { transform: rotate(0deg);  }
+
+/* 展开时二级箭头朝下；收起时向右。 */
+[data-lists] .l2-row:not(.collapsed) .l2-chevron { transform: rotate(90deg); }
+[data-lists] .l2-row.collapsed       .l2-chevron { transform: rotate(0deg);  }
+
+/* 二级箭头图标大小 */
+[data-lists] .l2-row .l2-chevron { font-size: 0.75rem; line-height: 1; }
+
+/* 折叠高度动画期间减少闪烁 */
+[data-lists] .collapse { overflow: hidden; will-change: height; }
+
+/* 一级目录文件夹离左边框间距 */
+[data-lists] .l1-row { padding-left: 1.5rem; }
+
+/* 二级目录：箭头和文件夹间距 */
+[data-lists] .l2-row .l2-chevron { margin-right: 0.9rem !important; }
+
+/* 一级/二级目录：文件夹离右侧文字间距 */
+[data-lists] .l1-folder-icon,
+[data-lists] .l2-folder-icon {
+  margin-right: 0.75rem !important;   /* 右侧文字与图标间距 */
+  font-size: 0.85rem;                 /* 图标大小 */
+  line-height: 1;                     /* 行高，避免图标被拉伸 */
+  vertical-align: middle;             /* 垂直对齐 */
+}
+
+/* 二级目录底下的文件缩进距离 */
+[data-lists] ul.list-group.ms-3 { margin-left: 0.1rem !important; }

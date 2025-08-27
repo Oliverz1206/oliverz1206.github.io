@@ -1,0 +1,103 @@
+/* ===========================================
+           Showcase-paginator 页面样式
+   =========================================== */
+/* Showcase 分页器：按钮与数字页码 */
+.showcase-pagination {
+  gap: .5rem;                         /* 按钮与数字页码之间的间隔 */
+  flex-wrap: wrap;                    /* 需要时换行，避免挤在一行 */
+}
+
+/* 数字页码：高度与按钮一致，垂直居中 */
+.showcase-pagination .page-link {
+  display: inline-flex;               /* 让内容垂直水平居中 */
+  align-items: center;                /* 垂直居中 */
+  justify-content: center;            /* 水平居中 */
+  min-height: 2rem;                   /* 最小高度 2rem，和按钮一致 */
+  line-height: 2rem;                  /* 行高 2rem，和按钮一致 */
+  padding-top: 0;                     /* 去掉顶部内边距 */
+  padding-bottom: 0;                  /* 去掉底部内边距 */
+}
+
+/* 幽灵按钮：默认透明、无边框 */
+.page-nav-btn {
+  position: relative;                 /* 相对定位，便于伪元素定位 */
+  display: inline-flex;               /* 让内容垂直水平居中 */
+  align-items: center;                /* 垂直居中 */
+  gap: .45rem;                        /* 图标与文字间距 */
+  min-height: 2rem;                   /* 最小高度 2rem */
+  line-height: 2rem;                  /* 行高 2rem */
+  padding: .25rem .75rem;             /* 内边距：上下 .25rem，左右 .75rem */
+  text-decoration: none;              /* 去掉下划线 */
+}
+
+/* 幽灵按钮：灰色背景，鼠标悬停时渐入填充 */
+.btn-ghost-gray {
+  color: var(--bs-gray-600);          /* 文字颜色 */  
+  background: transparent;            /* 透明背景 */
+  border: none;                       /* 无边框 */
+  box-shadow: none;                   /* 无外框阴影 */
+}
+
+/* 幽灵按钮：鼠标悬停时稍微降低文字/图标对比度 */
+.btn-ghost-gray::before {
+  content: "";                        /* 伪元素内容为空 */
+  position: absolute;                 /* 绝对定位，覆盖在按钮上 */  
+  inset: 0;                           /* 覆盖整个按钮 */
+  border-radius: .375rem;             /* 与 .btn 接近 */
+  background-image: linear-gradient(180deg, #e9ecef 0%, #dee2e6 100%);
+  opacity: 0;                         /* 初始透明 */ 
+  transition: opacity .2s ease;       /* 过渡动画（属性变化的平滑） */
+  z-index: 0;                         /* 在文字与图标之下 */ 
+}
+
+/* 幽灵按钮：鼠标悬停时渐入灰色填充 */
+.btn-ghost-gray:hover::before,
+.btn-ghost-gray:focus-visible::before {
+  opacity: 1;                         /* 悬停渐入灰色全填充 */
+}
+
+/* 让文字与图标在填充层之上 */
+.btn-ghost-gray > * {
+  position: relative;                 /* 相对定位，确保在伪元素之上 */
+  z-index: 1;                         /* 在伪元素之上 */  
+}
+
+/* 禁用态 */
+.btn-ghost-gray.disabled,
+.btn-ghost-gray:disabled,
+.page-item.disabled .btn-ghost-gray {
+  color: var(--bs-gray-500);          /* 禁用态文字颜色 */
+  cursor: not-allowed;                /* 鼠标形状 */
+  pointer-events: none;               /* 禁止鼠标事件 */
+}
+
+/* 禁用态按钮：灰色背景，鼠标悬停时不显示填充 */
+.page-item.disabled .btn-ghost-gray::before {
+  opacity: .4;                      
+}
+
+/* 窄屏策略：保留 Prev/Next 与 X/Y，隐藏大部分数字页码，避免拥挤 */
+@media (max-width: 576px) {
+  /* 按钮与数字页码 */
+  .pagination.showcase-pagination .page-item:not(.nav-prev):not(.nav-next):not(.disabled):not(.page-index) {
+    display: none;
+  }
+
+  /* Prev/Next 按钮 */
+  .pagination.showcase-pagination .page-index {
+    display: inline-flex;             /* 让内容垂直水平居中 */
+    align-items: center;              /* 垂直居中 */
+    white-space: nowrap;              /* 避免换行 */
+    margin: 0 .25rem;                 /* 左右间距 */  
+  }
+
+  /* “当前页” 与 “/” 之间距离 */
+  .pagination.showcase-pagination .page-index span + .text-muted {
+    margin-left: .35rem;             
+  }
+
+  /* “/” 与 ”总页数“ 之间距离 */
+  .pagination.showcase-pagination .page-index .text-muted {
+    word-spacing: .35rem;         
+  }
+}

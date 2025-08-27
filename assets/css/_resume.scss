@@ -1,0 +1,86 @@
+/* ===========================================
+               Resume 页面样式
+   =========================================== */
+/* 顶部按钮行：靠右、间距、上下边距 */
+.resume-actions {
+  display: flex;                      /* 布局方式：横向排列子元素 */
+  justify-content: flex-end;          /* 水平方向右对齐 */
+  gap: 0.5rem;                        /* 子元素之间的间隔 */
+}
+
+/* 通用按钮基类：统一宽高、字体、圆角、居中对齐 */
+.resume-btn {
+  width: 160px;                       /* 固定宽度，避免按钮因文字长度不同而错位 */  
+  height: 36px;                       /* 固定高度，避免按钮因文字长度不同而错位 */
+  font-size: 14px;                    /* 统一字体大小 */
+  border-radius: 0.5rem;              /* 圆角 */
+  display: flex;                      /* 让内容垂直水平居中 */
+  align-items: center;                /* 垂直居中 */
+  justify-content: center;            /* 水平居中 */
+  gap: 0.5rem;                        /* 图标与文字间距 */
+  text-decoration: none;              /* 去掉下划线 */
+  line-height: 1;                     /* 行高 1，避免文字被拉伸 */
+  border-bottom: 0;                   /* 去掉默认下划线 */
+  box-shadow: none;                   /* 去掉默认阴影 */
+  cursor: pointer;                    /* 鼠标形状 */
+}
+
+/* 颜色用 Bootstrap 变量，方便主题切换 */
+/* 实心按钮 */
+.resume-btn--solid {
+  background: var(--bs-success);      /* 背景 */
+  color: var(--bs-white);             /* 文字颜色 */
+  border: 1px solid var(--bs-success);/* 边框 */
+}
+
+/* 描边按钮 */
+.resume-btn--ghost {
+  background: transparent;            /* 背景 */
+  color: var(--bs-success);           /* 文字颜色 */
+  border: 1px solid var(--bs-success);/* 边框 */
+}
+
+/* 简单的悬停反馈 */
+.resume-btn:hover { opacity: .9; }
+
+/* 用于默认隐藏元素，替代内联 */
+.is-hidden { display: none !important; }
+
+/* 暗色模式下 Resume 页面按钮样式调整 */
+html[data-mode="dark"],
+html.dark,
+:root[data-theme="dark"] {
+  /* 实心按钮 */
+  [data-resume] .resume-btn {
+    background: color-mix(in srgb, var(--bs-success) 70%, var(--bs-black) 30%) !important;
+    color: var(--bs-white) !important;
+    border-color: var(--bs-gray-800) !important;
+  }
+
+  /* 描边按钮 */
+  [data-resume] .resume-btn--ghost {
+    background: transparent !important;
+    color: var(--bs-white) !important;
+    border-color: var(--bs-gray-800) !important;
+  }
+}
+
+/* 手机端：Resume 页面按钮行改为单列栅格布局 */
+@media (max-width: 576px) {
+  [data-resume] .resume-actions {
+    /* 桌面端是 flex 右对齐；手机端改为单列栅格并去掉负上边距 */
+    display: grid;                    /* 布局方式：单列栅格 */
+    padding: 0 .25rem;                /* 左右内边距 */
+    grid-template-columns: 1fr;       /* 强制单列 */
+    gap: .75rem;                      /* 子元素之间的间隔 */
+  }
+
+  [data-resume] .resume-actions .resume-btn {
+    /* 关键：按钮宽度 100%，内容居中 */
+    width: 100%;                      /* 宽度 100% */
+    display: flex;                    /* 覆盖 inline-flex/inline-block */
+    align-items: center;              /* 垂直居中 */
+    justify-content: center;          /* 水平居中 */
+    text-align: center;               /* 文字居中 */
+  }
+}
