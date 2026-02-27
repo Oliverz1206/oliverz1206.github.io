@@ -16,7 +16,7 @@ group :jekyll_plugins do
   gem "jekyll-paginate-v2", "~> 3.0"
 end
 
-gem "wdm", "~> 0.2.0", :platforms => [:windows]
+gem "wdm", "~> 0.2.0", platforms: [:windows]
 
 # 运行/服务用到的运行时库 —— Ruby 3.5 起不再默认内置，手动声明可消警告
 gem "webrick", "~> 1.8"  # jekyll serve 用

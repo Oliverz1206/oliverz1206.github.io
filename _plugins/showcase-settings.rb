@@ -181,7 +181,8 @@ module Jekyll
           doc.data['published'] = false
           begin
             doc.instance_variable_set(:@url, nil)
-          rescue
+          rescue StandardError
+            # ignore
           end
 
           # 创建接管页：`target_dir/index.md`
@@ -343,7 +344,8 @@ Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
       doc.data['published'] = false
       begin
         doc.instance_variable_set(:@url, nil)
-      rescue
+      rescue StandardError
+        # ignore
       end
       if doc.site.config.dig('showcase', 'debug')
         Jekyll.logger.info 'SHOWCASE_PERMALINK(pre_render)', "#{doc.path} -> #{newp}"

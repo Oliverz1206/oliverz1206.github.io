@@ -135,7 +135,7 @@ script_includes:
   </div>
 
   <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
+    <!-- categories: link only if an index page exists at that path (L1/L2 from hierarchical_indexes) -->
     {%- assign cats = page.categories | default: empty -%}
     {%- if cats and cats.size > 0 -%}
       <i class="far fa-folder-open fa-fw me-1"></i>
@@ -152,34 +152,19 @@ script_includes:
           {%- assign l1_path = base | append: l1_slug | append: '/' -%}
           {%- assign has_l1 = false -%}
           {%- for p in site.pages -%}
-            {%- if p.url == l1_path -%}
-              {% assign has_l1 = true -%}
-              {%- break %}
-            {%- endif -%}
+            {%- if p.url == l1_path -%}{% assign has_l1 = true -%}{%- break -%}{%- endif -%}
           {%- endfor -%}
-          {%- if has_l1 -%}
-            , <a href="{{ l1_path | relative_url }}">{{ l1 }}</a>
-          {%- else -%}
-            , {{ l1 }}
-          {%- endif -%}
+          {%- if has_l1 -%}, <a href="{{ l1_path | relative_url }}">{{ l1 }}</a>{%- else -%}, {{ l1 }}{%- endif -%}
         {%- endif -%}
-
         {%- if cats[2] -%}
           {%- assign l2 = cats[2] -%}
           {%- assign l2_slug = l2 | slugify -%}
           {%- assign l2_path = base | append: l1_slug | append: '/' | append: l2_slug | append: '/' -%}
           {%- assign has_l2 = false -%}
           {%- for p in site.pages -%}
-            {%- if p.url == l2_path -%}
-              {% assign has_l2 = true -%}
-              {%- break %}
-            {%- endif -%}
+            {%- if p.url == l2_path -%}{% assign has_l2 = true -%}{%- break -%}{%- endif -%}
           {%- endfor -%}
-          {%- if has_l2 -%}
-            , <a href="{{ l2_path | relative_url }}">{{ l2 }}</a>
-          {%- else -%}
-            , {{ l2 }}
-          {%- endif -%}
+          {%- if has_l2 -%}, <a href="{{ l2_path | relative_url }}">{{ l2 }}</a>{%- else -%}, {{ l2 }}{%- endif -%}
         {%- endif -%}
       </span>
     {%- endif -%}

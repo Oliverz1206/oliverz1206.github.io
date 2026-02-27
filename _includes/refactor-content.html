@@ -1,11 +1,8 @@
-<!-- Refactor the HTML structure -->
+<!-- Post-process rendered content: table wrapper, highlight fix, checkboxes, images, code headers, heading anchors. -->
 
 {% assign _content = include.content %}
 
-<!--
-  In order to allow a wide table to scroll horizontally,
-  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
--->
+<!-- Wrap tables in .table-wrapper for horizontal scroll -->
 
 {% if _content contains '<table' %}
   {% assign _content = _content
@@ -16,12 +13,7 @@
   %}
 {% endif %}
 
-<!--
-  Fixed kramdown code highlight rendering:
-  https://github.com/penibelst/jekyll-compress-html/issues/101
-  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
--->
-
+<!-- Fix kramdown + jekyll-compress-html: remove redundant <pre> wrapper around highlight code -->
 {% if _content contains '<pre class="highlight">' %}
   {% assign _content = _content
     | replace: '<div class="highlight"><pre class="highlight"><code', '<div class="highlight"><code'
@@ -29,8 +21,7 @@
   %}
 {% endif %}
 
-<!-- Change the icon of checkbox -->
-
+<!-- Replace task-list checkboxes with Font Awesome icons -->
 {% if _content contains '<input type="checkbox"' %}
   {% assign _content = _content
     | replace: '<input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />',
@@ -40,8 +31,7 @@
   %}
 {% endif %}
 
-<!-- Handle images -->
-
+<!-- Images: extract attrs, apply CDN/lazy-load, wrapper/link by layout -->
 {% assign IMG_TAG = '<img ' %}
 
 {% if _content contains IMG_TAG %}
@@ -207,10 +197,10 @@
 <!-- Add header for code snippets -->
 
 {% if _content contains '<div class="highlight"><code>' %}
-  {% assign _code_spippets = _content | split: '<div class="highlight"><code>' %}
+  {% assign _code_snippets = _content | split: '<div class="highlight"><code>' %}
   {% assign _new_content = '' %}
 
-  {% for _snippet in _code_spippets %}
+  {% for _snippet in _code_snippets %}
     {% if forloop.last %}
       {% assign _new_content = _new_content | append: _snippet %}
 
@@ -245,8 +235,7 @@
   {% assign _content = _new_content %}
 {% endif %}
 
-<!-- Create heading anchors -->
-
+<!-- Add anchor links to h2–h5 for in-page navigation -->
 {% assign heading_levels = '2,3,4,5' | split: ',' %}
 {% assign _heading_content = _content %}
 

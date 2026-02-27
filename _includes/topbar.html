@@ -1,4 +1,4 @@
-<!-- The Top Bar -->
+<!-- Top bar: breadcrumb, title, search. Breadcrumb supports page.top (hierarchical) or page.categories. -->
 
 <header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar">
   <div
@@ -12,34 +12,25 @@
         <span>{{ home_label | capitalize }}</span>
 
       {% elsif page.top %}
+        {%- comment -%} Hierarchical layout (list/index): top → level1 → level2 {%- endcomment -%}
         {%- assign top_slug = page.top    | slugify -%}
         {%- assign l1_slug  = page.level1 | slugify -%}
         {%- assign l2_slug  = page.level2 | slugify -%}
 
         <span><a href="{{ '/' | relative_url }}">{{ home_label | capitalize }}</a></span>
         <span><a href="{{ '/' | append: top_slug | append: '/' | relative_url }}">{{ page.top }}</a></span>
-
         {% if page.level1 %}
-          <span>
-            <a href="{{ '/' | append: top_slug | append: '/' | append: l1_slug | append: '/' | relative_url }}">
-              {{ page.level1 }}
-            </a>
-          </span>
+          <span><a href="{{ '/' | append: top_slug | append: '/' | append: l1_slug | append: '/' | relative_url }}">{{ page.level1 }}</a></span>
         {% endif %}
-
         {% if page.level2 %}
-          <span>
-            <a href="{{ '/' | append: top_slug | append: '/' | append: l1_slug | append: '/' | append: l2_slug | append: '/' | relative_url }}">
-              {{ page.level2 }}
-            </a>
-          </span>
+          <span><a href="{{ '/' | append: top_slug | append: '/' | append: l1_slug | append: '/' | append: l2_slug | append: '/' | relative_url }}">{{ page.level2 }}</a></span>
         {% endif %}
-
-    {% if page.layout == 'post' and page.title %}
-      <span>{{ page.title }}</span>
-    {% endif %}
+        {% if page.layout == 'post' and page.title %}
+          <span>{{ page.title }}</span>
+        {% endif %}
 
       {% elsif page.categories %}
+        {%- comment -%} Post/category breadcrumb from categories[0,1,2] {%- endcomment -%}
         {%- assign top      = page.categories[0] -%}
         {%- assign level1   = page.categories[1] -%}
         {%- assign level2   = page.categories[2] -%}
@@ -57,13 +48,12 @@
         {% if level2 %}
           <span><a href="{{ '/' | append: top_slug | append: '/' | append: l1_slug | append: '/' | append: l2_slug | append: '/' | relative_url }}">{{ level2 }}</a></span>
         {% endif %}
-
         {% if page.layout == 'post' and page.title %}
           <span>{{ page.title }}</span>
         {% endif %}
 
       {% else %}
-        {% comment %} 保留 Chirpy 原逻辑 {% endcomment %}
+        {%- comment -%} Fallback: parse path segments (e.g. tab pages) {%- endcomment -%}
         {% assign paths = page.url | split: '/' %}
         {% if paths.size == 0 %}
       <span>{{ home_label | capitalize }}</span>
@@ -92,6 +82,7 @@
       {% if page.layout == 'home' %}
         {{- site.data.locales[include.lang].title | default: site.title -}}
       {% elsif page.collection == 'tabs' or page.layout == 'page' %}
+        {%- comment -%} Tab/page: locale title by path or fallback to page.title {%- endcomment -%}
         {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
         {{- site.data.locales[include.lang].tabs[tab_key] | default: page.title -}}
       {% else %}

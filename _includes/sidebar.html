@@ -1,4 +1,4 @@
-<!-- The Side Bar -->
+<!-- Sidebar: avatar, nav tabs, mode toggle, contact links. Current tab highlighted by path prefix. -->
 
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
   <header class="profile-wrapper">
@@ -94,23 +94,22 @@
         {% endcase %}
 
         {% if url %}
+          {%- comment -%} rel: noopener noreferrer for target=_blank; add "me" for Mastodon {%- endcomment -%}
+          {% assign link_rel = '' %}
+          
+          {% unless entry.noblank %}
+            {% assign link_rel = 'noopener noreferrer' %}
+          {% endunless %}
+          
+          {% if entry.type == 'mastodon' %}
+            {% assign link_rel = link_rel | append: ' me' | strip %}
+          {% endif %}
+          
           <a
             href="{{ url }}"
             aria-label="{{ entry.type }}"
-            {% assign link_types = '' %}
-
-            {% unless entry.noblank %}
-              target="_blank"
-              {% assign link_types = 'noopener noreferrer' %}
-            {% endunless %}
-
-            {% if entry.type == 'mastodon' %}
-              {% assign link_types = link_types | append: ' me' | strip %}
-            {% endif %}
-
-            {% unless link_types == empty %}
-              rel="{{ link_types }}"
-            {% endunless %}
+            {% unless entry.noblank %}target="_blank"{% endunless %}
+            {% if link_rel != '' %}rel="{{ link_rel }}"{% endif %}
           >
             <i class="{{ entry.icon }}"></i>
           </a>

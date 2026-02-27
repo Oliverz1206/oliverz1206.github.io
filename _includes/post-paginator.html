@@ -1,4 +1,4 @@
-<!-- The paginator for post list -->
+<!-- Paginator for post/list pages. Page 1 links to section root (e.g. /blogs/) not /page1/. -->
 <nav aria-label="Page Navigation">
   <ul class="pagination showcase-pagination align-items-center mt-4 mb-0">
 
@@ -32,8 +32,8 @@
 
     {%- comment -%}
       从 page.url 中剥离：
-      1) index.html
-      2) 当前分页段（如 /page2/）
+      1 index.html
+      2 当前分页段（如 /page2/）
       得到节目录根，如 /projects/ 或 /
     {%- endcomment -%}
     {% assign current_seg = paginate_pattern | replace: ':num', paginator.page %}

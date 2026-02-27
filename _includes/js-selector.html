@@ -1,4 +1,4 @@
-<!-- JS selector for site. -->
+<!-- Loads theme JS by layout (post, home, archives, etc.). Adds lazy-polyfill, dayjs, glightbox, clipboard, TOC, mermaid, MathJax, pageviews as needed. -->
 
 {%- comment -%} 规范化布局名：将自定义布局映射到主题语义布局 {%- endcomment -%}
 {%- assign js_layout = page.layout -%}
@@ -41,6 +41,7 @@
   %}
 {% endif %}
 
+{%- comment -%} Include TOC script when content has headings and TOC is enabled (site + page) {%- endcomment -%}
 {% if page.content contains '<h2' or page.content contains '<h3' and site.toc and page.toc %}
   {% assign urls = urls | append: ',' | append: site.data.origin[type].toc.js %}
 {% endif %}

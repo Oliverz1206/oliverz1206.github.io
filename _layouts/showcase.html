@@ -1,7 +1,7 @@
 ---
 layout: default
 refactor: true
-# Layout for showcase / postcard tabs format
+# Layout for showcase / postcard tabs: intro + paginated post cards (with optional image).
 ---
 {% include lang.html %}
 
@@ -19,8 +19,8 @@ refactor: true
   {% for post in paginator.posts %}
     <article class="card-wrapper card">
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
+        {% comment %} Card body col: 7 when post has image (image col 5), else 12 {% endcomment %}
         {% assign card_body_col = '12' %}
-
         {% if post.image %}
           {% assign src = post.image.path | default: post.image %}
           {% capture src %}{% include media-url.html src=src subpath=post.media_subpath %}{% endcapture %}
@@ -46,7 +46,7 @@ refactor: true
             <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
 
             <div class="card-text content mt-0 mb-3">
-              <p>{% include post-description.html %}</p>
+              <p>{% include post-summary.html %}</p>
             </div>
 
             <div class="post-meta flex-grow-1 d-flex align-items-end">
