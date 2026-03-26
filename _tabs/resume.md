@@ -18,6 +18,11 @@ download_cn: /assets/files/resume_cn.pdf
 
 ## <i class="fas fa-graduation-cap"></i> &nbsp; **Education**
 
+#### **Shanghai Jiao Tong University**
+*Phd. in Electronic Science and Technology*  
+**Aug 2025 - Present** [Eexpeted Jun 2029]  
+**Relevant Research Area:**  Mixed-signal Design, Design Automation of IC, Computer Architecture and Hardware AI Acceleration.
+
 #### **Duke University**  
 *M.S. in Electrical and Computer Engineering*  
 **Aug 2023 – May 2025**  
@@ -40,7 +45,6 @@ Developed an **Intelligent Irrigation System** using KNN, including circuit desi
 
 #### **Peking University**  
 *Summer School: Python Programming and Application*  
-
 **Jul – Aug 2020**
 
 ---

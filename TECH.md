@@ -2,8 +2,6 @@
 
 This document explains how the repository is structured, how the main pieces of the Jekyll + Chirpy setup interact, and where to look when you want to change specific behaviors (routing, layouts, indexes, etc.).
 
-If you are trying to answer *“where should I edit to change X?”*, skim the sections below and jump to the relevant folder or plugin.
-
 ---
 
 ## Top-level layout
